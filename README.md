@@ -170,7 +170,7 @@ cp .env.example .env
 
 ## About
 
-I'm **Gonzalo Vasquez** — Product Manager, founder, and builder. 6+ years of PM experience across consumer tech, ads, and fintech (Rappi, Intuit). Currently finishing my MBA at Berkeley Haas and building [GOPLAI](https://letsgoplai.com), an AI-powered sports-tech platform.
+I'm **Gonzalo Vasquez** — Product Manager, founder, and builder. 8+ years of PM experience across consumer tech, ads, and fintech (Rappi, Intuit). MBA from Berkeley Haas, and co-founder of [GOPLAI](https://letsgoplai.com), an AI-powered sports-tech platform.
 
 Notion power user — 9 interconnected databases (Tasks, Learnings, Journal, Content, Applications, Companies, Network, Key Results, Habits) form the persistent layer this entire system runs on. Every workflow reads from and writes to Notion via the API.
 

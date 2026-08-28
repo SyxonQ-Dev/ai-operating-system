@@ -75,11 +75,11 @@ The **Long Game** motion runs a cadence engine that surfaces who's going cold on
 
 | Workflow | Trigger | What it produces |
 |----------|---------|------------------|
-| [**JobHunter**](./job-hunter/) | `"Find PM jobs at [company/segment]"` | Roles scraped across ATS platforms, scored for fit, deduped against the pipeline, grouped by vertical — surfaced for review before anything is committed |
+| [**JobHunter**](./job-hunter/) | `"Find PM jobs at [company/segment]"` | Roles swept from four sources, scored by archetype × role-type multiplier, deduped against the pipeline, grouped by vertical — surfaced for review, never written to the pipeline automatically |
 | [**NetworkingScout**](./networking-scout/) | `"Find people at [company]"` | Ranked contacts (seniority + alumni affinity + relevance) with a tailored outreach angle for each |
 | **Opportunity** (orchestrator) | `"Work [company / role]"` | Runs Apply + Reach-HM + Find-Connector in parallel and routes each to its best channel |
 | **BoldEmail** (primary channel) | `"Draft a bold email to [person]"` | A proof-first, value-led cold email to a decision-maker — drafted, never auto-sent |
-| [**ApplicationBlitz**](./application-blitz/) | `"Generate materials for [job]"` | A tailored-resume edit checklist + cover letter matched to the job |
+| [**ApplicationBlitz**](./application-blitz/) | `"Generate materials for [job]"` | A tailored resume + edit checklist + cover letter, built in three layers (narrative → evidence → wording) from a bank of human-approved bullets, with an honest report of every JD term it refused to claim |
 | [**RelationshipNurture**](./relationship-nurture/) | `"Who do I need to follow up with?"` | Cadence-based nurture report + follow-up drafts for the Long Game motion |
 | **FunnelReport** (measurement) | `"How's the funnel doing?"` | Conversion at every stage — reached → replied → meeting → interview → offer |
 

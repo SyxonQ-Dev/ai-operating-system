@@ -1,114 +1,74 @@
 # ApplicationBlitz — Workflow Prompt
 
 ## Purpose
-Generate tailored resume, cover letter, and application answers in under 5 minutes for any PM role.
+
+Turn a job posting into application materials that argue for one impression and survive an interview — a tailored resume, an edit checklist for the canonical Google Doc, a cover letter, and an honest ATS coverage report.
+
+## Triggers
+
+- `"Generate materials for [job URL]"`
+- `"Run Blitz for [company]"`
+- `"Tailor my resume for this role"`
 
 ## Core Functionality
 
 ### Input
-- Job from Applications DB (URL or Notion page ID)
-- Job description (fetched automatically)
-- Company context from Companies DB
+
+- A job posting (URL, a pasted description, or a pipeline entry)
+- Company context from the Companies database — tier, archetype, warmth
+- The bullet bank: every approved bullet, with themes, strength, protected facts, provenance
 
 ### Processing
-1. Analyze job description (key requirements, skills, culture signals)
-2. Select relevant experiences from background
-3. Generate tailored resume (emphasize relevant experience)
-4. Write cover letter (if needed)
-5. Answer common application questions
+
+**① Narrative — who should the reader see?**
+
+Classify the role, then route to one of four stories: zero-to-one, growth, monetization, or AI-native. Set the layout profile in the same pass — founder requisitions and AI-native companies promote startup work out of Education so it leads the page.
+
+Roles that classify as genuinely misaligned (platform / infrastructure) return no narrative and **abort**. State the reason; do not invent a story to fill the gap.
+
+**② Composer — which evidence, in what order?**
+
+1. Score every *approved* bullet against the narrative and the JD's terms. Deterministic, no model.
+2. Hand the model a ranked shortlist per company. It picks and orders, with a stated reason per pick.
+3. Enforce in code afterwards: drop unknown IDs and duplicates, force-include pinned credentials, apply per-company line bounds, hold the total page budget by evicting the lowest-scoring picks, and keep cross-company order reverse-chronological.
+
+Any unusable response falls back to deterministic selection.
+
+**③ Tailor — how does each sentence read?**
+
+Tune each selected bullet to the posting's vocabulary inside its character ceiling. Pass coverage gaps in as explicit targets, computed *before* this step. Retry over-budget rewrites once, asking for exactly the needed cut.
 
 ### Output
-- Tailored resume (PDF via reportlab)
-- Cover letter (DOCX or PDF)
-- Application answers (text file)
-- All saved to `outputs/applications/{company}-{role}/`
 
-## Resume Generation Strategy
+Written to the applications folder, one directory per role:
 
-### Company-Type Tailoring
+- `resume_tailored.md` — the pasteable resume
+- `edit_checklist.md` — Current/Proposed diffs for the canonical Google Doc
+- `cover_letter.md`
+- `analysis.md` — narrative routing, ATS coverage, declined terms, fit warnings
+- `changes.md` — what changed and why, per bullet
 
-**For Consumer/AI Companies:**
-- Emphasize: Startup AI experience, consumer product sense
-- Lead with: AI-native PM positioning
-- Highlight: 0→1 experience, product craft
+## Non-negotiables
 
-**For Big Tech:**
-- Emphasize: Scale experience, platform work
-- Lead with: Years of PM experience
-- Highlight: Cross-functional leadership, data-driven decisions
+**Protected facts survive verbatim.** A rewrite that drops or alters a protected number is rejected and the approved text ships instead.
 
-**For Fintech:**
-- Emphasize: Fintech platform experience
-- Lead with: Fintech PM positioning
-- Highlight: Payments, onboarding, enterprise
+**Character ceilings hold.** Bullets keep their rendered line count at real font size and margins.
 
-**For Sports/Consumer Lifestyle:**
-- Emphasize: Sports-tech startup
-- Lead with: PM for athletes/communities
-- Highlight: Consumer engagement, domain passion
+**Fixed slots are immutable.** Awards, credentials, and contact details are never reworded.
 
-### Dynamic Experience Ordering
+**Unapproved bullets are invisible.** Drafts cannot reach a resume.
 
-Reorder resume sections based on the target role type:
-- AI-focused → Startup first, then enterprise, then consumer
-- Consumer/Scale → Consumer scale first, then startup, then enterprise
-- Fintech → Fintech first, then marketplace, then startup
+**Any gate failure degrades to the approved baseline.** Never to damaged text.
 
-## Cover Letter Template
+**Terms that cannot be placed truthfully are declined, not forced.** Report them. Several *core* requirements declined is real evidence the role is a stretch — surface that before an application is spent on it.
 
-```
-[Your Name]
-[Date]
-
-Dear [Hiring Manager],
-
-[P1: Positioning + excitement about the specific role]
-[P2: Most relevant experience, matched to job requirements]
-[P3: Why this company — specific product insight, not generic]
-[P4: Current project and how it connects]
-[P5: Close — what you'd bring + thank you]
-
-Best regards,
-[Your Name]
-```
-
-## Application Question Templates
-
-### "Why do you want to work here?"
-```
-Three reasons:
-1. Product Philosophy: [Company]'s approach to [specific aspect]
-2. Impact at Scale: Opportunity to build for [users]
-3. Team & Culture: [Company's] focus on [specific value]
-```
-
-### "Tell us about a 0→1 product you built"
-```
-Problem → Solution → Approach → Impact → Key Learning
-(Always include a specific metric and a user behavior insight)
-```
-
-### "Describe your PM approach"
-```
-Three principles:
-1. Start with the Problem, Not the Solution (example)
-2. Bias Toward Shipping & Iteration (example)
-3. Data + Intuition (example)
-```
-
-## Usage
-
-```bash
-python main.py blitz --url="https://company.com/careers/12345"
-python main.py blitz --job-id="notion-page-id"
-python main.py blitz --job-id="id" --preview   # No file output
-python main.py blitz --json                      # Structured output
-```
+**One number everywhere.** When sources disagree on a figure, settle it in the bank as a canonical fact and record what it supersedes, so the resume and the interview never contradict each other.
 
 ## Success Criteria
 
-- Generates tailored resume in < 2 minutes
-- Resume emphasizes relevant experiences per job
-- Cover letter includes company-specific hooks
-- Application answers are compelling and specific
-- Total time < 5 minutes per application
+- The resume argues one impression, not a list of everything
+- Every claim traces to an approved bullet
+- The page fits its line budget at real formatting
+- ATS coverage is measured before and after, with the delta reported
+- Declined terms are surfaced, not hidden
+- A hostile or failed model pass yields the human-approved baseline

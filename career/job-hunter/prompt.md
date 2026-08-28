@@ -1,7 +1,7 @@
 # JobHunter — Workflow Prompt
 
 ## Purpose
-Automatically scrape career pages of Tier 1 target companies, find Product Manager roles, and add them to a Notion Applications database.
+Discover PM roles across four sources, score them for fit, dedupe against the live pipeline, and surface a review digest. **Never writes to the pipeline directly** — promotion is a separate, explicit step naming the rows I picked.
 
 ## Core Functionality
 
@@ -14,12 +14,16 @@ Automatically scrape career pages of Tier 1 target companies, find Product Manag
 2. Filter for PM roles (exclude TPM, Group PM)
 3. Extract: Job title, location, URL, compensation (if available)
 4. Check for duplicates in Applications DB
-5. Add new jobs with Status="Not applied"
+5. Score by company archetype x role-type multiplier
+6. Save to a candidates file for review — do not write to the pipeline
 
 ### Output
-- New entries in Applications DB
+- A candidates file (review artifact — NOT a pipeline write)
+- A digest grouped by vertical, best-fit companies first
 - Daily log file
-- Summary for WeeklyRecruitingMemo
+- Summary for the weekly recruiting update
+
+Promotion to the Applications database is a separate command that commits only the named rows.
 
 ## Tier 1 Companies
 
