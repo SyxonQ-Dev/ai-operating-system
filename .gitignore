@@ -15,6 +15,11 @@ venv/
 outputs/
 output/
 
+# Coursework — kept locally, deliberately not published.
+# This repo is a curated narrative showcase, not a code mirror, and publishing
+# assignment solutions is not something to do by accident.
+assignments/
+
 # OS
 .DS_Store
 Thumbs.db
