@@ -32,7 +32,7 @@ An operating system layer that turns natural language into structured workflows 
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**53+ workflows · 9 Notion databases · 6 domains · 6 agents · 3 daily-use automations**
+**54+ workflows · 9 Notion databases · 6 domains · 6 agents · 3 daily-use automations**
 
 ---
 
@@ -170,13 +170,13 @@ cp .env.example .env
 
 ## About
 
-I'm **Gonzalo Vasquez** — Product Manager, founder, and builder. 8+ years of PM experience across consumer tech, ads, and fintech (Rappi, Intuit). MBA from Berkeley Haas, and co-founder of [GOPLAI](https://letsgoplai.com), an AI-powered sports-tech platform.
+I'm **Gonzalo Vasquez** — Product Manager, founder, and builder. 9.5 years of PM experience across consumer tech, ads, and fintech (Rappi, Intuit). MBA from Berkeley Haas, and co-founder of [GOPLAI](https://letsgoplai.com), an AI-powered sports-tech platform.
 
 Notion power user — 9 interconnected databases (Tasks, Learnings, Journal, Content, Applications, Companies, Network, Key Results, Habits) form the persistent layer this entire system runs on. Every workflow reads from and writes to Notion via the API.
 
 This system is how I operate.
 
-[Website](https://gonzalovasquez.com) · [LinkedIn](https://linkedin.com/in/gonzalovasquezd)
+[Website](https://gonzavasquez.vercel.app) · [LinkedIn](https://linkedin.com/in/gonzalovasquezd)
 
 ---
 

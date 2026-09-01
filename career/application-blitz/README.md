@@ -78,6 +78,21 @@ That list is the most useful output. Several *core* requirements landing in it i
 
 ATS coverage is measured **before** tailoring and passed in as explicit targets, so closing a gap is an input rather than a scorecard printed afterwards.
 
+## Speed as a design constraint
+
+Answering a fresh hiring post is time-sensitive — a req can collect a hundred applicants in a day. Runs were taking three and a half to four and a half minutes, which is too slow to act while a post is still warm.
+
+Profiling the pipeline showed the third layer — per-bullet wording — was **64% of the wall clock** and produced six accepted tweaks out of thirty-three slots. So it became opt-in rather than default:
+
+| Mode | Wall clock | What you get |
+|---|---|---|
+| default | **~75s** | Bullets ship as human-approved bank text — brand-compliant and fabrication-checked already |
+| `--polish` | ~3.5 min | Layer 3 tunes wording to the posting's vocabulary |
+
+Measured across three postings, polish added between 2 and 15 points of keyword coverage. The pattern: **it earns its cost only when the base resume sits far from the posting's language.** For a role that resembles work already on the resume, it buys almost nothing.
+
+Two things stayed untouched. The cover letter was already generated in a background thread, so skipping it saves no wall clock at all. And the critic pass — which reads like a length check but is actually the fabrication filter — is never cut for speed, because the runs where it silently failed are exactly the runs that shipped overstated claims.
+
 ## Design Decisions
 
 - **Why a human-approved bank instead of free generation?** The narrative rewrite already happened — once, by me. The model's job shrinks to something it's actually reliable at: tuning approved copy to a JD's vocabulary. Everything it returns is checked by code.
